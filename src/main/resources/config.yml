@@ -1,0 +1,196 @@
+#The ENTIRE CONFIG OF THIS PLUGIN, WOW
+
+# === GENERAL ===
+reload-success: "&aLuminolQoL configuration reloaded successfully!"
+no-permission: "&cYou don't have permission to use this command."
+
+# === SOUND FOR AUTO HARVESTER ===
+autoReplantEnabled: true
+autoReplant:
+  play-sound-effects: true
+  sound-source: "block.note_block.bell"
+  sound-volume: 1.0
+  sound-pitch: 0.6
+
+# === Light sources for dynamic lighting ===
+light-sources:
+  TORCH: 14
+  LANTERN: 15
+  CAMPFIRE: 10
+  SOUL_TORCH: 14
+  SOUL_LANTERN: 15
+
+# === Sitables (Sit on stairs/slabs) ===
+sit:
+  enabled: true
+sitables:
+  blocks:
+    - OAK_STAIRS
+    - SPRUCE_STAIRS
+    - BIRCH_STAIRS
+    - STONE_SLAB
+    - SANDSTONE_SLAB
+
+# === FUNNY DEATH MESSAGES ===
+funny-death-messages:
+  enabled: true
+  default:
+      - "&7{player} forgot what the shift key does."
+      - "&7{player} lagged IRL."
+      - "&7{player} was too busy typing ‘L’ to stay alive."
+      - "&7{player} experienced skill issue."
+      - "&7{player} should’ve watched a tutorial first."
+
+  fall:
+      - "&7{player} tried MLG... and missed."
+      - "&7{player} thought water would be there."
+      - "&7{player} believed they could fly. They couldn’t."
+      - "&7{player} forgot the bucket part of ‘water bucket clutch’."
+      - "&7{player} went splat faster than Wi-Fi disconnects."
+
+  lava:
+      - "&7{player} thought lava was orange juice."
+      - "&7{player} tested if Nether was swim-safe. It wasn’t."
+      - "&7{player} tried to speedrun like Dream and melted."
+      - "&7{player} went for a hot bath and never came back."
+
+  fire:
+      - "&7{player} lit themselves like a candle."
+      - "&7{player} became medium-rare."
+      - "&7{player} thought fire resistance was default."
+      - "&7{player} discovered that fire spreads… to them."
+
+  explosion:
+      - "&7{player} tried to hug a creeper."
+      - "&7{player} went boom, just like their FPS."
+      - "&7{player} stood too close to ‘free loot’."
+      - "&7{player} underestimated TNT physics."
+
+  entity_attack:
+      - "&7{player} lost the argument with {killer}."
+      - "&7{player} got combo’d by {killer}."
+      - "&7{player} challenged {killer} to a duel. Bad idea."
+      - "&7{player} got slapped into another seed by {killer}."
+
+  player_attack:
+      - "&7{player} got PvP’d into the shadow realm by {killer}."
+      - "&7{player} forgot their sword durability while fighting {killer}."
+      - "&7{player} misclicked and paid for it against {killer}."
+      - "&7{player} rage quit IRL after {killer} killed them."
+
+  drowning:
+      - "&7{player} thought they were a fish."
+      - "&7{player} forgot humans need oxygen."
+      - "&7{player} found Nemo. Then drowned."
+      - "&7{player} learned what ‘bubbles’ mean the hard way."
+
+  void:
+      - "&7{player} fell off the edge. Again."
+      - "&7{player} went to visit the void. One-way trip."
+      - "&7{player} rage jumped after losing their stuff."
+      - "&7{player} forgot where the ground was."
+
+  suffocation:
+      - "&7{player} got stuck in a wall trying to glitch through."
+      - "&7{player} forgot they’re not a ghost."
+      - "&7{player} learned walls aren’t breathable."
+      - "&7{player} embraced the wall... permanently."
+
+  freezing:
+      - "&7{player} became one with the snow biome."
+      - "&7{player} got iced like a bad meme."
+      - "&7{player} didn’t bring their Minecraft jacket."
+      - "&7{player} thought powdered snow was solid."
+
+  poison:
+      - "&7{player} ate suspicious stew. It was very suspicious."
+      - "&7{player} thought rotten flesh was food."
+      - "&7{player} trusted a witch’s recipe."
+      - "&7{player} learned what ‘side effects may vary’ means."
+
+  wither:
+      - "&7{player} hugged the Wither. Big mistake."
+      - "&7{player} was out-skilled by a flying skeleton."
+      - "&7{player} got deleted by the Wither like bad code."
+      - "&7{player} found out what ‘wither away’ really means."
+
+  magic:
+      - "&7{player} didn’t respect potion physics."
+      - "&7{player} tried casting a spell without a license."
+      - "&7{player} just got vaporized by dark magic."
+      - "&7{player} couldn’t handle the wizard patch notes."
+
+  lightning:
+      - "&7{player} stood in the open during a thunderstorm. Genius."
+      - "&7{player} got unplugged by Zeus."
+      - "&7{player} tried to be Pikachu. It worked too well."
+      - "&7{player} got selected as lightning’s favorite target."
+
+  cactus:
+      - "&7{player} hugged a cactus for emotional support."
+      - "&7{player} learned nature has boundaries."
+      - "&7{player} found out cacti aren’t huggable."
+      - "&7{player} said: ‘It’s just a plant!’ Famous last words."
+
+  anvil:
+      - "&7{player} got Looney Tunes’d by an anvil."
+      - "&7{player} looked up too late."
+      - "&7{player} got crushed by their own anvil setup."
+      - "&7{player} didn’t see it coming. Literally."
+
+  falling_block:
+      - "&7{player} didn’t understand gravity blocks."
+      - "&7{player} played ‘catch’ with a falling block. Lost."
+      - "&7{player} learned sand is heavier than it looks."
+
+  starve:
+      - "&7{player} starved while holding 64 bread."
+      - "&7{player} forgot the eat button exists."
+      - "&7{player} didn’t pack lunch for the adventure."
+      - "&7{player} got too lazy to farm."
+
+  contact:
+      - "&7{player} stepped on pain."
+      - "&7{player} poked the wrong block."
+      - "&7{player} should’ve watched their step."
+
+  projectile:
+      - "&7{player} caught an arrow with their teeth."
+      - "&7{player} took a bow fight personally."
+      - "&7{player} was sniped by {killer} from a mile away."
+      - "&7{player} forgot to zigzag."
+
+  trident:
+      - "&7{player} got trident’d by {killer}. Poseidon approves."
+      - "&7{player} found out water fights hurt."
+      - "&7{player} underestimated how aerodynamic tridents are."
+
+  dragon_breath:
+      - "&7{player} got cooked by dragon breath."
+      - "&7{player} learned that dragons need mints."
+      - "&7{player} inhaled purple particles. Not good."
+
+  cramming:
+      - "&7{player} tried to fit into a mob party."
+      - "&7{player} got squished by their friends."
+      - "&7{player} learned that personal space matters."
+
+  fire_tick:
+      - "&7{player} kept burning just to see what happens next."
+      - "&7{player} thought they’d walk it off."
+      - "&7{player} forgot stop, drop, and roll."
+
+  hot_floor:
+      - "&7{player} stepped on magma like it was carpet."
+      - "&7{player} discovered hot yoga... in the Nether."
+      - "&7{player} forgot their magma-proof shoes."
+
+  sonic_boom:
+      - "&7{player} tried whispering to a Warden. Loud mistake."
+      - "&7{player} got blasted by a Warden mixtape."
+      - "&7{player} was too loud. Warden said shhh... forever."
+
+  thorns:
+      - "&7{player} hit someone spikier than their personality."
+      - "&7{player} punched a cactus in armor form."
+      - "&7{player} took instant karma damage."

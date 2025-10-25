@@ -1,0 +1,44 @@
+name: LuminolQoL
+version: '1.0'
+main: com.luminol.luminolQoL.LuminolQoL
+api-version: '1.21'
+load: STARTUP
+author: Luminol
+description: Quality of life improvements for servers, including auto planting, dynamic lights, and funny death messages.
+bootstrapper: com.luminol.luminolQoL.bootstrappers.VeinMinerBootstrapper
+loader: com.luminol.luminolQoL.listeners.VeinMinerListener
+
+commands:
+  luminolreload:
+      description: "Reload all configuration for LuminolQoL."
+      permission: luminol.admin
+      usage: /luminolreload
+      aliases: [ "lqreload" ]
+
+  autoreplant:
+    description: "Reload the plugins configuration."
+    permission: autoreplant.admin
+    usage: /autoreplant reload
+    aliases: ["ar"]
+
+  dynlight:
+    description: Toggle dynamic lighting
+    usage: /<command> [on|off|reload]
+    permission: simpledynamiclight.reload
+
+permissions:
+  autoreplant.admin:
+    description: "Allows for reloading the plugins configuration."
+    default: op
+
+  luminol.admin:
+     description: "Allows using admin commands for LuminolQoL."
+     default: op
+
+  luminol.veinminer:
+    description: Allows using veinminer
+    default: op
+
+    luminol.timber:
+      description: Allows tree felling
+      default: op
