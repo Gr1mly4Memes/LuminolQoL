@@ -27,16 +27,18 @@ public class LuminolQoL extends JavaPlugin {
 
         // Initialize config manager
         configManager = new ConfigManager(this);
+        configManager.load();
 
         // Register dynamic lighting
         playerListener = new PlayerListener(this);
         getServer().getPluginManager().registerEvents(playerListener, this);
 
         // Register other features
-        getServer().getPluginManager().registerEvents(new DeathMessageListener(), this);
+        getServer().getPluginManager().registerEvents(new DeathMessageListener(this, configManager), this);
         getServer().getPluginManager().registerEvents(new TotemInventoryListener(), this);
-        getServer().getPluginManager().registerEvents(new SitInteractListener(), this);
-        getServer().getPluginManager().registerEvents(new CropHarvestListener(configManager), this);
+        getServer().getPluginManager().registerEvents(new SitInteractListener(this, configManager), this);
+        getServer().getPluginManager().registerEvents(new SitDismountListener(), this);
+        getServer().getPluginManager().registerEvents(new CropHarvestListener(this, configManager), this);
 
         // Register commands
         getCommand("autoreplant").setExecutor(new AutoReplantCommand(configManager));

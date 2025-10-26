@@ -122,22 +122,26 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onEntityPickupItem(EntityPickupItemEvent event) {
         Item item = event.getItem();
-        if (itemLightLocations.containsKey(item)) {
-            removeItemLight(item);
 
-            if (event.getEntity() instanceof Player) {
-                Player player = (Player) event.getEntity();
+        // Always try to remove item light, even if not in the map
+        // This ensures cleanup happens
+        removeItemLight(item);
 
-                if (!plugin.isDynamicLightEnabled(player)) {
-                    return;
-                }
+        if (event.getEntity() instanceof Player) {
+            Player player = (Player) event.getEntity();
 
-                ItemStack itemStack = item.getItemStack();
-                int lightLevel = getLightLevel(itemStack);
+            if (!plugin.isDynamicLightEnabled(player)) {
+                return;
+            }
 
-                if (lightLevel > 0) {
+            ItemStack itemStack = item.getItemStack();
+            int lightLevel = getLightLevel(itemStack);
+
+            if (lightLevel > 0) {
+                // Schedule the player light update for next tick to ensure item is picked up
+                Bukkit.getScheduler().runTask(plugin, () -> {
                     updatePlayerLight(player, player.getLocation(), lightLevel);
-                }
+                });
             }
         }
     }
@@ -161,19 +165,26 @@ public class PlayerListener implements Listener {
 
         if (currentLightLocation != null) {
             Bukkit.getScheduler().runTask(plugin, () -> {
-                currentLightLocation.getBlock().setType(Material.AIR);
+                Block oldBlock = currentLightLocation.getBlock();
+                // Only remove if it's still a light block we placed
+                if (oldBlock.getType() == Material.LIGHT) {
+                    oldBlock.setType(Material.AIR);
+                }
             });
         }
 
         Bukkit.getScheduler().runTask(plugin, () -> {
             Block block = location.getBlock();
-            block.setType(Material.LIGHT);
+            // Only place light if the block is air or already a light block
+            if (block.getType() == Material.AIR || block.getType() == Material.LIGHT) {
+                block.setType(Material.LIGHT);
 
-            Levelled lightData = (Levelled) block.getBlockData();
-            lightData.setLevel(lightLevel);
-            block.setBlockData(lightData);
+                Levelled lightData = (Levelled) block.getBlockData();
+                lightData.setLevel(lightLevel);
+                block.setBlockData(lightData);
 
-            playerLightLocations.put(player, location);
+                playerLightLocations.put(player, location);
+            }
         });
     }
 
@@ -181,7 +192,11 @@ public class PlayerListener implements Listener {
         Location lightLocation = playerLightLocations.remove(player);
         if (lightLocation != null) {
             Bukkit.getScheduler().runTask(plugin, () -> {
-                lightLocation.getBlock().setType(Material.AIR);
+                Block block = lightLocation.getBlock();
+                // Only remove if it's still a light block we placed
+                if (block.getType() == Material.LIGHT) {
+                    block.setType(Material.AIR);
+                }
             });
         }
     }
@@ -192,19 +207,26 @@ public class PlayerListener implements Listener {
 
         if (currentLightLocation != null) {
             Bukkit.getScheduler().runTask(plugin, () -> {
-                currentLightLocation.getBlock().setType(Material.AIR);
+                Block oldBlock = currentLightLocation.getBlock();
+                // Only remove if it's still a light block we placed
+                if (oldBlock.getType() == Material.LIGHT) {
+                    oldBlock.setType(Material.AIR);
+                }
             });
         }
 
         Bukkit.getScheduler().runTask(plugin, () -> {
             Block block = itemLocation.getBlock();
-            block.setType(Material.LIGHT);
+            // Only place light if the block is air or already a light block
+            if (block.getType() == Material.AIR || block.getType() == Material.LIGHT) {
+                block.setType(Material.LIGHT);
 
-            Levelled lightData = (Levelled) block.getBlockData();
-            lightData.setLevel(lightLevel);
-            block.setBlockData(lightData);
+                Levelled lightData = (Levelled) block.getBlockData();
+                lightData.setLevel(lightLevel);
+                block.setBlockData(lightData);
 
-            itemLightLocations.put(item, itemLocation);
+                itemLightLocations.put(item, itemLocation);
+            }
         });
     }
 
@@ -212,7 +234,11 @@ public class PlayerListener implements Listener {
         Location lightLocation = itemLightLocations.remove(item);
         if (lightLocation != null) {
             Bukkit.getScheduler().runTask(plugin, () -> {
-                lightLocation.getBlock().setType(Material.AIR);
+                Block block = lightLocation.getBlock();
+                // Only remove if it's still a light block we placed
+                if (block.getType() == Material.LIGHT) {
+                    block.setType(Material.AIR);
+                }
             });
         }
     }
@@ -237,15 +263,29 @@ public class PlayerListener implements Listener {
                 }
             }
 
-            for (Map.Entry<Item, Location> entry : itemLightLocations.entrySet()) {
+            // Clean up dead/invalid items and update valid ones
+            itemLightLocations.entrySet().removeIf(entry -> {
                 Item item = entry.getKey();
+
+                // Remove if item is dead or invalid
+                if (item.isDead() || !item.isValid()) {
+                    Location lightLocation = entry.getValue();
+                    if (lightLocation != null) {
+                        lightLocation.getBlock().setType(Material.AIR);
+                    }
+                    return true;
+                }
+
+                // Update light if item moved
                 Location currentLightLocation = entry.getValue();
                 Location itemLocation = item.getLocation();
 
                 if (!itemLocation.equals(currentLightLocation)) {
                     updateItemLight(item, getLightLevel(item.getItemStack()));
                 }
-            }
+
+                return false;
+            });
         }, 0L, 5L);
     }
 }

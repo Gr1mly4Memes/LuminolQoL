@@ -31,6 +31,11 @@ public class CropHarvestListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onCropHarvest(final BlockBreakEvent event) {
+        // Check if auto-replant is enabled
+        if (!this.configManager.isAutoReplantEnabled()) {
+            return;
+        }
+
         final Player player = event.getPlayer();
         final Block block = event.getBlock();
         final Material type = block.getType();

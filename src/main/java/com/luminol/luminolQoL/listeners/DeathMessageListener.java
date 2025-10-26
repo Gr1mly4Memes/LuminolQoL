@@ -28,6 +28,11 @@ public class DeathMessageListener implements Listener {
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
+        // Check if feature is enabled
+        if (!plugin.getConfig().getBoolean("funny-death-messages.enabled", true)) {
+            return;
+        }
+
         Player player = event.getEntity();
         if (player == null) return;
 
