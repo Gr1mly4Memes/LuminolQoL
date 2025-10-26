@@ -16,7 +16,7 @@ public class LuminolQoL extends JavaPlugin {
     public static final String VERSION = "1.0";
 
     private final Set<UUID> disabledPlayers = new HashSet<>();
-    private PlayerListener playerListener;
+    private DynamicLightingListener dynamicLightingListener;
     private ConfigManager configManager;
 
     @Override
@@ -30,8 +30,8 @@ public class LuminolQoL extends JavaPlugin {
         configManager.load();
 
         // Register dynamic lighting
-        playerListener = new PlayerListener(this);
-        getServer().getPluginManager().registerEvents(playerListener, this);
+        dynamicLightingListener = new DynamicLightingListener(this);
+        getServer().getPluginManager().registerEvents(dynamicLightingListener, this);
 
         // Register other features
         getServer().getPluginManager().registerEvents(new DeathMessageListener(this, configManager), this);
@@ -39,6 +39,8 @@ public class LuminolQoL extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new SitInteractListener(this, configManager), this);
         getServer().getPluginManager().registerEvents(new SitDismountListener(), this);
         getServer().getPluginManager().registerEvents(new CropHarvestListener(this, configManager), this);
+        getServer().getPluginManager().registerEvents(new ItemStackListener(this), this);
+        getServer().getPluginManager().registerEvents(new VeinMinerListener(this), this);
 
         // Register commands
         getCommand("autoreplant").setExecutor(new AutoReplantCommand(configManager));
